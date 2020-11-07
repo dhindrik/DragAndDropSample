@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="DragAndDrop.MainPage">
+    <Grid RowDefinitions="100, *" RowSpacing="40">
+
+  <StackLayout Padding="10">
+      <Label Text="Add new item" />
+      <Entry Text="{Binding NewTitle}" Placeholder="Enter a title" />
+      <Button Text="Save" Command="{Binding Save}" />
+  </StackLayout>
+
+    <Grid x:Name="Main" Grid.Row="1" ColumnDefinitions="*,1,*,1,*" RowDefinitions="50,*" Padding="10" ColumnSpacing="10">
+        <BoxView Color="Gray" Grid.Column="1" Grid.RowSpan="2" />
+        <BoxView Color="Gray" Grid.Column="3" Grid.RowSpan="2" />
+
+        <Label Text="To do" HorizontalOptions="Start" VerticalOptions="Center" />
+        <StackLayout Grid.Row="1" BindableLayout.ItemsSource="{Binding Todo}">
+            <StackLayout.GestureRecognizers>
+                <DropGestureRecognizer AllowDrop="True" Drop="DropGestureRecognizer_Drop" DragOverCommandParameter="{Binding Id}" />
+                </StackLayout.GestureRecognizers>
+
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="LightGoldenrodYellow" IsVisible="{Binding IsVisible}">
+                <Frame.GestureRecognizers>
+                    <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" DragStartingCommandParameter="{Binding Id}" />
+                </Frame.GestureRecognizers>
+                <Label Text="{Binding Text}" />
+            </Frame>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+       
+           
+        </StackLayout>
+        <Label Text="In progress" Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" />
+        <StackLayout Grid.Row="1" Grid.Column="2" BindableLayout.ItemsSource="{Binding InProgress}">
+            <StackLayout.GestureRecognizers>
+                <DropGestureRecognizer AllowDrop="True" Drop="InProgressDropGestureRecognizer_Drop" DragOverCommandParameter="{Binding Id}" />
+                </StackLayout.GestureRecognizers>
+              <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="LightGoldenrodYellow" IsVisible="{Binding IsVisible}">
+                <Frame.GestureRecognizers>
+                    <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" DragStartingCommandParameter="{Binding Id}" />
+                </Frame.GestureRecognizers>
+                <Label Text="{Binding Text}" />
+            </Frame>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+        <Label Text="Done" Grid.Column="4" HorizontalOptions="Start" VerticalOptions="Center" />
+        <StackLayout Grid.Row="1" Grid.Column="4"  BindableLayout.ItemsSource="{Binding Done}">
+            <StackLayout.GestureRecognizers>
+                <DropGestureRecognizer AllowDrop="True" Drop="DoneDropGestureRecognizer_Drop" DragOverCommandParameter="{Binding Id}" />
+                </StackLayout.GestureRecognizers>
+              <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="LightGoldenrodYellow" IsVisible="{Binding IsVisible}">
+                <Frame.GestureRecognizers>
+                    <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" DragStartingCommandParameter="{Binding Id}"/>
+                </Frame.GestureRecognizers>
+                <Label Text="{Binding Text}" />
+            </Frame>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </Grid>
+        </Grid>
+</ContentPage>
